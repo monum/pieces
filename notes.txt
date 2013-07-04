@@ -1,0 +1,5 @@
+Some notes
+
+1. pip freeze | grep Flask
+
+Flask==0.10.1
