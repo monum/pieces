@@ -3,3 +3,5 @@ Some notes
 1. pip freeze | grep Flask
 
 Flask==0.10.1
+
+2. virtualenv? http://flask.pocoo.org/docs/installation/
