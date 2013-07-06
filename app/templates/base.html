@@ -4,10 +4,12 @@
     <title>pieces</title>
     <meta charset="utf-8">
     <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap.css') }}">
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap-responsive.css') }}">
   </head>
   <body>
-    pieces
+    <div id="hero"></div>
     {% block body %}{% endblock %}
   </body>
 </html>
