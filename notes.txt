@@ -5,3 +5,5 @@ Some notes
 Flask==0.10.1
 
 2. virtualenv? http://flask.pocoo.org/docs/installation/
+
+3. Using Bootstrap Version 2.3.2
