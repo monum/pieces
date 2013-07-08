@@ -45,7 +45,7 @@ var isPeSupported = function() {
 }
 
 //http://stackoverflow.com/questions/2745432/best-way-to-detect-that-html5-canvas-is-not-supported
-function isCanvasSupported(){
+var isCanvasSupported = function() {
     /* Test for canvas element support in the browser. */
 
     var elem = document.createElement('canvas');
@@ -53,6 +53,6 @@ function isCanvasSupported(){
 }
 
 // http://stackoverflow.com/questions/5898656/test-if-an-element-contains-a-class
-function hasClass(element, cls) {
+var hasClass = function(element, cls) {
     return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1;
 }
