@@ -8,3 +8,5 @@ Flask==0.10.1
 
 3. Using Bootstrap Version 2.3.2
   - Customized just to use scaffolding and responsive bits: http://twitter.github.io/bootstrap/customize.html
+  - "If you've compiled Bootstrap from the Customize page, you need only
+    include the meta tag."
