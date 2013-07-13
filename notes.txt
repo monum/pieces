@@ -10,3 +10,5 @@ Flask==0.10.1
   - Customized just to use scaffolding and responsive bits: http://twitter.github.io/bootstrap/customize.html
   - "If you've compiled Bootstrap from the Customize page, you need only
     include the meta tag."
+
+4. Using customized Font Awesome icon kit (just using the search icon for now): github.com/johnsmclay/icnfnt
