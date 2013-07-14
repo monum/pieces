@@ -1,25 +1,7 @@
 {% extends "base.html" %}
 {% block body %}
     <div id="content" class="container content">
-        <!-- this should be in the base template -->
-        <div class="row-fluid" style="margin: 10px 0px 10px 0px;">
-            <div class="span9">
-                <a class="title" href="/">
-                    <span class="city-name">Monum</span>
-                    <span>Pieces 2013</span>
-                </a>
-            </div>
-            <!-- style="margin-top: -.25em;" -->
-            <div class="span3">
-                <form>
-                    <div id="search-bar">
-                        <label for="request-submit"><i class="icon icon-search"></i></label>
-                        <input id="request-submit" type="submit" value="" class="hidden" />
-                        <input id="request-query" type="text" placeholder="Location or Request ID" name="query">
-                    </div>
-                </form>
-            </div>
-        </div>
+        {% include "header.html" %}
         <div class="row-fluid" style="margin: 10px 0px 10px 0px;">
             <div class="span4" style="background: #CCC;">&nbsp;</div>
         </div>
@@ -45,3 +27,5 @@
         </div>
     <footer>-->
 {% endblock %}
+
+<!-- 0. separate header 1. coming soon page on domain 2. Figure out the endpoints 3. Error pages 4. set up analytics 5. typekit? 6. IE7 font awesome fixes-->
