@@ -12,3 +12,9 @@ Flask==0.10.1
     include the meta tag."
 
 4. Using customized Font Awesome icon kit (just using the search icon for now): github.com/johnsmclay/icnfnt
+
+5. To optimize images:
+
+Use ImageOptim: http://imageoptim.com/ or github.com/pornel/ImageOptim
+
+From the command line, run: open -a ~/ImageOptim.app *.png
