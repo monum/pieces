@@ -18,3 +18,5 @@ Flask==0.10.1
 Use ImageOptim: http://imageoptim.com/ or github.com/pornel/ImageOptim
 
 From the command line, run: open -a ~/ImageOptim.app *.png
+
+(An alternative: pngcrush: http://pmt.sourceforge.net/pngcrush/ + jpegoptim: http://freecode.com/projects/jpegoptim)
