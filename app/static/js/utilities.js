@@ -56,3 +56,27 @@ var isCanvasSupported = function() {
 var hasClass = function(element, cls) {
     return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1;
 }
+
+var getDistance = function(x1,y1,x2,y2) {
+    return Math.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
+}
+
+var sinh = function(value){
+    var a = Math.pow(Math.E, value),
+        b = Math.pow(Math.E, -1*value);
+
+    return .5*(a-b);
+}
+
+var convertTileXYToLatLng = function(zoom, xTile, yTile) {
+    var n = Math.pow(2, zoom),
+        lonDeg = (xTile / n) * 360.0 - 180.0,
+        latRad = Math.atan(sinh(Math.PI * (1 - 2 * yTile/n))),
+        latDeg = latRad * 180.0 / Math.PI;
+
+    return [lonDeg,latDeg];
+}
+
+var normalizeNeighborhoodName = function(neighborhood) {
+    return neighborhood.toLowerCase().split(/[\s/]+/).join('_');
+}
