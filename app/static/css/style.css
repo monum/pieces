@@ -11,10 +11,16 @@ body {
 
 #title {
     color: #333;
-    /*font-size: 24px;*/
+    font-size: 24px;
     font-weight: bold;
-    font-size: 1.7em;
+    /*font-size: 1.7em;*/
     line-height: 26px;
+}
+
+#updated-date-container {
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 30px;
 }
 
 #footer {
