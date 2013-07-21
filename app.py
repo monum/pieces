@@ -1,6 +1,6 @@
 from flask import Flask, g, render_template
 
-#***
+#***#
 from flask import json
 
 import os
@@ -38,8 +38,6 @@ def query_db(query, args=()):
     cur = g.db.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
     
     try:
-        #a = cur.mogrify(query,args)
-        #print a
         cur.execute(query, args)
     except psycopg2.DataError,err:
         print 'Error', err
