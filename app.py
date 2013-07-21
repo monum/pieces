@@ -9,6 +9,10 @@ import urlparse
 
 app = Flask(__name__)
 
+###
+# Handle database connection
+###
+
 def connect_db():
     urlparse.uses_netloc.append("postgres")
     url = urlparse.urlparse(os.environ["DATABASE_URL"])
@@ -53,6 +57,10 @@ def query_db(query, args=()):
 
     return res
 
+###
+# API Calls
+###
+
 def get_sample():
     res = query_db("""
         SELECT *
@@ -61,6 +69,16 @@ def get_sample():
     
     return res
 
+@app.route("/sample")
+def display_sample():
+    sample = get_sample()
+    
+    return json.dumps(sample)
+
+###
+# Page Rendering
+###
+
 @app.route("/")
 def dashboard():
     """
@@ -68,12 +86,6 @@ def dashboard():
     """
     
     return render_template('dashboard.html')
-
-@app.route("/sample")
-def display_sample():
-    sample = get_sample()
-    
-    return json.dumps(sample)
 
 if __name__ == '__main__':
     app.run()
