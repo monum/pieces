@@ -86,7 +86,7 @@ def get_sample_json():
 def display_sample_json():
     sample = get_sample_json()
     
-    return res
+    return sample
 
 ###
 # Page Rendering
