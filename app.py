@@ -74,6 +74,20 @@ def display_sample():
     
     return json.dumps(sample)
 
+def get_sample_json():
+    res = query_db("""
+        SELECT row_to_json(row(status))
+        FROM requests
+    """)
+    
+    return res
+
+@app.route("/sample_json")
+def display_sample_json():
+    sample = get_sample_json()
+    
+    return res
+
 ###
 # Page Rendering
 ###
