@@ -44,14 +44,13 @@ def query_db(query, args=()):
     try:
         cur.execute(query, args)
     except psycopg2.DataError,err:
-        print 'Error', err
+        print 'Data Error: ', err
     
     try:
         res = cur.fetchall()
     except psycopg2.ProgrammingError, err:
         res = None
-            
-        print 'Error', err
+        print 'Programming Error: ', err
 
     cur.close()
 
