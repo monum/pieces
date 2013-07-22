@@ -40,6 +40,7 @@ def teardown_request(exception):
 
 def query_db(query, args=()):
     cur = g.db.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+    #cur = g.db.cursor() # If using Postgres JSON functions
     
     try:
         cur.execute(query, args)
@@ -86,7 +87,7 @@ def get_sample_json():
 def display_sample_json():
     sample = get_sample_json()
     
-    return sample
+    return json(sample)
 
 ###
 # Page Rendering
