@@ -1,7 +1,4 @@
-from flask import Flask, g, render_template
-
-#***#
-from flask import json
+from flask import Flask, json, g, render_template, request, Response
 
 import os
 import psycopg2, psycopg2.extras
@@ -73,7 +70,7 @@ def get_sample():
 def display_sample():
     sample = get_sample()
     
-    return json.dumps(sample)
+    return Response(json.dumps(sample), mimetype='application/json')
 
 def get_sample_json():
     res = query_db("""
@@ -87,7 +84,7 @@ def get_sample_json():
 def display_sample_json():
     sample = get_sample_json()
     
-    return json.dumps(sample)
+    return Response(json.dumps(sample), mimetype='application/json')
 
 ###
 # Page Rendering
