@@ -72,6 +72,7 @@ def display_sample():
     
     return Response(json.dumps(sample), mimetype='application/json')
 
+'''
 def get_sample_json():
     res = query_db("""
         SELECT row_to_json(row(status))
@@ -85,6 +86,7 @@ def display_sample_json():
     sample = get_sample_json()
     
     return Response(json.dumps(sample), mimetype='application/json')
+'''
 
 ###
 # Page Rendering
