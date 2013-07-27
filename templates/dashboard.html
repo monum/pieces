@@ -3,26 +3,7 @@
     <div id="content" class="container content">
         {% include "header.html" %}
         {% include "updated-date.html" %}
-        <div class="row-fluid" style="margin: 10px 0px 10px 0px;">
-            <div class="span3">
-                <div class="stat-title">Most Requests Past Month</div>
-                <div class="stat">
-                    <span id="most-requests">Sidewalk or Street</span>
-                </div>
-            </div>
-            <div class="span3">
-                <div class="stat-title">Number of Stale Requests</div>
-                <div class="stat">
-                    <span id="stale-count">96</span> Requests
-                </div>
-            </div>
-            <div class="span3">
-                <div class="stat-title">Average Response Time</div>
-                <div class="stat">
-                    <span id="average-response-time">92</span> Hours
-                </div>
-            </div>
-        </div>
+        {% include "stats.html" %}
         <div class="row-fluid" style="margin: 10px 0px 10px 0px;">
             <div class="span12" style="background: #CCC">&nbsp;</div>
         </div>
