@@ -4,6 +4,10 @@ body {
     padding: 28px;
 }
 
+#header {
+    margin: 10px 0px 10px 0px;
+}
+
 #city-name {
     color: #999;
     font-weight:normal;
@@ -46,6 +50,10 @@ a {
 /* Utility Classes */
 .hidden {
     display: none;
+}
+
+.row-margin {
+    margin-bottom: 10px;
 }
 
 /* Handling the search element */
