@@ -9,7 +9,7 @@ app = Flask(__name__)
 ###
 # Handle database connection
 ###
-
+"""
 def connect_db():
     urlparse.uses_netloc.append("postgres")
     url = urlparse.urlparse(os.environ["DATABASE_URL"])
@@ -30,7 +30,7 @@ def before_request():
 def teardown_request(exception):
     if hasattr(g, 'db'):
         g.db.close()
-
+"""
 ###
 # Utility functions
 ###
