@@ -37,9 +37,49 @@ body {
     color: #000;
 }
 
-#footer {
+#footer-container {
+    padding: 5px;
     margin-top: 2em;
     margin-bottom: 2em;
+}
+
+#footer {
+    height: 56px; 
+    position: relative;
+    font-size: 12px;
+}
+
+#footer-profile {
+    width:60px; 
+    border-radius:60px;
+}
+
+#footer-stat-container {
+    display: inline-block;
+    color: #777;
+}
+
+#footer-text {
+    height: 37px;
+    position: absolute;
+    top: 50%;
+    left: 70px;
+    margin-top: -18px;
+}
+
+#footer strong {
+    font-weight: bold;
+    font-size: 18px;
+    color: #333;
+}
+
+.footer-text-container {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+#footer a {
+    color: #333;
 }
 
 /* General Element Styles */
