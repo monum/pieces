@@ -73,18 +73,19 @@ body {
     color: #333;
 }
 
-.footer-text-container {
+.footer-text-credits {
     display: inline-block;
     margin-left: 10px;
 }
 
-#footer a {
-    color: #333;
+.footer-text-credits a:hover {
+    color: #777;
 }
 
 /* General Element Styles */
 a {
     text-decoration: none;
+    color: #333;
 }
 
 /* Utility Classes */
@@ -144,9 +145,3 @@ input#request-query {
     outline-width: 0;
     -moz-outline-width: 0;
 }
-
-/*
-#request-submit:focus + #is {
-    color: #ff0000;
-}
-*/
