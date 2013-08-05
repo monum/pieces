@@ -37,9 +37,8 @@ def compute_time_range(end_date=None, num_of_days=1):
 def parse_date(date_string):
     try:
         return iso8601.parse_date(date_string)
-    except iso8601.ParseError:
-        return None
-    except:
+    except (iso8601.ParseError, Exception) as e:
+    	print 'Error: ', e
         return None
 
 def get_requests(city, start, end, page):
@@ -51,17 +50,18 @@ def get_requests(city, start, end, page):
     base_url = config['endpoint']
 
     query_args = {
-                  'start_date' : start.isoformat() +'Z', 
-                  'end_date' :   end.isoformat() + 'Z',
-                  'page':       page,
-                  'page_size':  200,
-                  'extension':  'v1'
+                  'start_date':  start.isoformat() +'Z', 
+                  'end_date':    end.isoformat() + 'Z',
+                  'page':        page,
+                  'page_size':   200,
+                  'extension':   'v1'
                  }
     
     try:
         return requests.get(base_url, params=query_args).json()
-    except requests.exceptions.RequestException as e:
-        print e
+    except (requests.exceptions.RequestException, Exception) as e:
+        print 'Error: ', e
+        sys.exit(1)
 
 def update_database(reqs):
     """Inserting and updating 311 data into our mongo database."""
