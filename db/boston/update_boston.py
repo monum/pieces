@@ -161,12 +161,12 @@ if __name__ == '__main__':
 
         start, end = compute_time_range(end_date, 1) # Just handling one day at a time
 
+	latest_response_length = None 
+	
         for day in xrange(num_of_days):
             page = 1
-            more_pages = True
-            latest_response_length = None   
+            more_pages = True  
             while more_pages:
-                print page
                 response = get_requests(config['city'], start, end, page)
 
                 latest_response_length = len(response)
