@@ -9,13 +9,6 @@ import requests
 import pymongo
 from pymongo import MongoClient
 
-def is_number(s):
-    try:
-        float(s)
-        return True
-    except ValueError:
-        return False
-
 def load_config_json(filename):
     with open(filename, 'rt') as f:
         config = json.load(f)
