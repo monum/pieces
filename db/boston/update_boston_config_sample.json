@@ -1,0 +1,15 @@
+{
+    "DATABASE": {
+        "host": "localhost",
+        "port": 27017,
+        "db_name": "Your-Database-Name",
+        "collection_prefix": "boston_"
+    },
+    
+    "city": "boston",
+    
+    "endpoint": "https://open311.cityofboston.gov/open311/v2/requests.json",
+    
+    "taxonomy" : {
+    }
+}
