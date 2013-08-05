@@ -129,9 +129,11 @@ if __name__ == '__main__':
         Example usage of this script: python update_boston.py -e 2013-07-25 -n 3
     """
     
-    defaults = {'config': 'update_boston_config.json', 
-                'end_date': datetime.datetime.strftime(default_end_date,'%Y-%m-%d'), 
-                'num_of_days': 1}
+    defaults = {
+    	'config': 'update_boston_config.json', 
+        'end_date': datetime.datetime.strftime(default_end_date,'%Y-%m-%d'), 
+        'num_of_days': 1
+    }
 
     parser.set_defaults(**defaults)
     
