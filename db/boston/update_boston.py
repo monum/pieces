@@ -60,7 +60,7 @@ def get_requests(city, start, end, page):
     
     try:
         return requests.get(base_url, params=query_args).json()
-    except request.exceptions.RequestException as e:
+    except requests.exceptions.RequestException as e:
         print e
 
 def update_database(reqs):
