@@ -1,0 +1,4 @@
+1. Run the following command in the Mongo console before you start updating or
+adding too many documents:
+
+  db.collection.ensureIndex({"service_request_id":1})
