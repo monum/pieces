@@ -18,7 +18,7 @@ def load_config_json(filename):
 def append_log(file_name, message):
     with open(file_name, 'a') as log_file:
         log_file.write('\n') 
-	log_file.write(message)
+    log_file.write(message)
     
 def compute_time_range(end_date=None, num_of_days=1):
     """Computing the the start and end date for our Open311 query"""
@@ -38,7 +38,7 @@ def parse_date(date_string):
     try:
         return iso8601.parse_date(date_string)
     except (iso8601.ParseError, Exception) as e:
-    	print 'Error: ', e
+        print 'Error: ', e
         return None
 
 def get_requests(city, start, end, page):
@@ -54,7 +54,7 @@ def get_requests(city, start, end, page):
                   'end_date':    end.isoformat() + 'Z',
                   'page':        page,
                   'page_size':   200,
-                  'extension':   'v1'
+                  'extensions':  'v1'
                  }
     
     try:
@@ -67,13 +67,14 @@ def update_database(reqs):
     """Inserting and updating 311 data into our mongo database."""
         
     try:
-        for req in reqs:            
+        for req in reqs:
             attributes = [
                 'service_request_id', 
                 'service_name', 
                 'service_code',
                 'description', 
-                'status', 
+                'status',
+                'status_notes',
                 'lat', 
                 'long', 
                 'requested_datetime', 
@@ -86,21 +87,55 @@ def update_database(reqs):
                 if attribute not in req:
                     req[attribute] = None
 
+            extended_attributes = [
+                'channel',
+                'classification',
+                'queue'
+            ]
+            
+            for extended_attribute in extended_attributes:
+                if extended_attribute not in req['extended_attributes']:
+                    req['extended_attributes'][extended_attribute] = None
+
+            # Parse DateTimes
             requested_datetime = parse_date(req['requested_datetime'])
             updated_datetime = parse_date(req['updated_datetime'])
 
+            # Set specific service type
+            if type(req['extended_attributes']['classification']) is list and len(req['extended_attributes']['classification']) == 3:
+                department = req['extended_attributes']['classification'][0]
+                division = req['extended_attributes']['classification'][1]
+                service_type = req['extended_attributes']['classification'][2]
+            else:
+                department = None
+                division = None
+                service_type = None
+
+            """
+            # Clean up Queue
+            if type(req['extended_attributes']['queue']) is str:
+                queue = req['extended_attributes'].split('_')[0]
+            else:
+                queue = None
+            """
+
             adjusted_req = {
-                'service_request_id':   req['service_request_id'],
-                'service_name':         req['service_name'],
-                'service_code':         req['service_code'],
-                'description':          req['description'],
-                'status':               req['status'],
-                'lat':                  req['lat'],
-                'lng':                  req['long'],
-                'requested_datetime':   requested_datetime,
-                'updated_datetime':     updated_datetime,
-                'address':              req['address'],
-                'media_url':            req['media_url']
+                'service_request_id':       req['service_request_id'],
+                'service_name':             req['service_name'],
+                'service_code':             req['service_code'],
+                'description':              req['description'],
+                'status':                   req['status'],
+                'lat':                      req['lat'],
+                'lng':                      req['long'],
+                'requested_datetime':       requested_datetime,
+                'updated_datetime':         updated_datetime,
+                'address':                  req['address'],
+                'media_url':                req['media_url'],
+                'channel':                  req['extended_attributes']['channel'],
+                'department':               department,
+                'division':                 division,
+                'service_type':             service_type,
+                'queue':                    req['extended_attributes']['queue']
             }
 
             service_requests.update(
@@ -110,9 +145,16 @@ def update_database(reqs):
             )
 
     except Exception as e:
-        print 'Error', e
+        print 'Update Error', e
 
 if __name__ == '__main__':
+    """
+        Edit update_boston_config_sample.json to include the specifics about your postgres instance.
+        Rename the file to update_boston_config.json.
+
+        Example usage of this script: python update_boston.py -e 2013-07-25 -n 3
+    """
+
     from optparse import OptionParser
     
     ONE_DAY = datetime.timedelta(1)
@@ -121,16 +163,9 @@ if __name__ == '__main__':
 
     default_end_date = (datetime.datetime.utcnow()
                         .replace(hour=0, minute=0, second=0, microsecond=0) - ONE_DAY)
-
-    """
-        Edit db_config_sample.json to include the specifics about your postgres instance.
-        Rename the file to db_config.json.
-
-        Example usage of this script: python update_boston.py -e 2013-07-25 -n 3
-    """
-    
+        
     defaults = {
-    	'config': 'update_boston_config.json', 
+        'config': 'update_boston_config.json', 
         'end_date': datetime.datetime.strftime(default_end_date,'%Y-%m-%d'), 
         'num_of_days': 1
     }
