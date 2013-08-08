@@ -32,10 +32,15 @@ def teardown_request(exception):
         g.db.close()
 """
 
-MONGO_URL = os.environ.get('MONGOHQ_URL')
-client = MongoClient(MONGO_URL)
-db = client.three11
+if (os.environ.get('MONGOHQ_URL')):
+    MONGO_URL = os.environ.get('MONGOHQ_URL')
+    client = MongoClient(MONGO_URL)
+else:
+    host = 'localhost'
+    port = 27017
+    client = MongoClient(host, port)
 
+db = client.three11
 ###
 # Utility functions
 ###
