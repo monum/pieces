@@ -1,8 +1,8 @@
 from flask import Flask, json, g, render_template, request, Response
 
 import os
-import psycopg2, psycopg2.extras
-import urlparse
+import pymongo
+from pymongo import MongoClient
 
 app = Flask(__name__)
 
@@ -31,10 +31,15 @@ def teardown_request(exception):
     if hasattr(g, 'db'):
         g.db.close()
 """
+
+MONGO_URL = os.environ.get('MONGOHQ_URL')
+client = MongoClient(MONGO_URL)
+db = client.three11
+
 ###
 # Utility functions
 ###
-
+'''
 def query_db(query, args=()):
     cur = g.db.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
     #cur = g.db.cursor() # If using Postgres JSON functions
@@ -72,6 +77,7 @@ def display_sample():
     
     return Response(json.dumps(sample), mimetype='application/json')
 
+'''
 '''
 def get_sample_json():
     res = query_db("""
