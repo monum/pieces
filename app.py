@@ -36,33 +36,15 @@ if (os.environ.get('MONGOHQ_URL')):
     MONGO_URL = os.environ.get('MONGOHQ_URL')
     client = MongoClient(MONGO_URL)
 else:
-    host = 'localhost'
-    port = 27017
-    client = MongoClient(host, port)
+    HOST = 'localhost'
+    PORT = 27017
+    client = MongoClient(HOST, PORT)
 
 db = client.three11
 ###
 # Utility functions
 ###
-'''
-def query_db(query, args=()):
-    cur = g.db.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
-    #cur = g.db.cursor() # If using Postgres JSON functions
-    
-    try:
-        cur.execute(query, args)
-    except psycopg2.DataError,err:
-        print 'Data Error: ', err
-    
-    try:
-        res = cur.fetchall()
-    except psycopg2.ProgrammingError, err:
-        res = None
-        print 'Programming Error: ', err
 
-    cur.close()
-
-    return res
 
 ###
 # API Calls
@@ -83,22 +65,6 @@ def display_sample():
     return Response(json.dumps(sample), mimetype='application/json')
 
 '''
-'''
-def get_sample_json():
-    res = query_db("""
-        SELECT row_to_json(row(status))
-        FROM requests
-    """)
-    
-    return res
-
-@app.route("/sample_json")
-def display_sample_json():
-    sample = get_sample_json()
-    
-    return Response(json.dumps(sample), mimetype='application/json')
-'''
-
 ###
 # Page Rendering
 ###
