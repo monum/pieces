@@ -4,6 +4,9 @@ import os
 import pymongo
 from pymongo import MongoClient
 
+# Default Config
+DEBUG = True
+
 app = Flask(__name__)
 
 ###
