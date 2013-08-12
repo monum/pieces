@@ -43,3 +43,5 @@ virtualenv -p /usr/local/bin/python2.7 venv
 
 To activate: source venv/bin/activate
 To deactivate: deactivate
+
+8. Using Mongo 2.4.5
