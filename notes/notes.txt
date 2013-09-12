@@ -45,3 +45,7 @@ To activate: source venv/bin/activate
 To deactivate: deactivate
 
 8. Using Mongo 2.4.5
+
+9. Add Heroku Buildpack + GIS:
+
+https://github.com/monum/heroku-buildpack-python-gis
