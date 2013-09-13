@@ -7,8 +7,9 @@ import iso8601
 import json
 import requests
 import pymongo
-from pymongo import MongoClient
+#from pymongo import MongoClient
 from shapely.geometry import shape, Point
+from urlparse import urlparse
 
 def load_json(filename):
     with open(filename, 'rt') as f:
@@ -201,11 +202,15 @@ if __name__ == '__main__':
         # Connect to the database
         if (os.environ.get('MONGOHQ_URL')):
             MONGO_URL = os.environ.get('MONGOHQ_URL')
-            client = MongoClient(MONGO_URL)
+            #client = MongoClient(MONGO_URL)
+            conn = pymongo.Connection(MONGO_URL)
+            db = conn[urlparse(MONGO_URL).path[1:]]
         else:
-            client = MongoClient(config['DATABASE']['host'], config['DATABASE']['port'])
+            #client = MongoClient(config['DATABASE']['host'], config['DATABASE']['port'])
+            conn = pymongo.Connection(config['DATABASE']['host'], config['DATABASE']['port'])
+            db = config['DATABASE']['db_name']
 
-        db = client[config['DATABASE']['db_name']]
+        #db = client[config['DATABASE']['db_name']]
         collection_prefix = config['DATABASE']['collection_prefix']
         service_requests = db[collection_prefix + 'requests']
 
