@@ -8,12 +8,13 @@ import json
 import requests
 import pymongo
 from pymongo import MongoClient
+from shapely.geometry import shape, Point
 
-def load_config_json(filename):
+def load_json(filename):
     with open(filename, 'rt') as f:
-        config = json.load(f)
+        json_data = json.load(f)
         
-    return config
+    return json_data
 
 def append_log(file_name, message):
     with open(file_name, 'a') as log_file:
@@ -118,6 +119,17 @@ def update_database(reqs):
             else:
                 queue = None
             """
+            
+            # Find out the neighborhood of the request.
+            req_point = Point(req['lng'], req['lat'])
+            
+            for feature in neighborhood_data['features']:
+                neighborhood_polygon = shape(feature['geometry'])
+                
+                if neighborhood_polygon.contains(req_point):
+                    neighborhood = feature['properties']['neighborhood']
+                    print 'Neighborhood: ', neighborhood
+                    break
 
             adjusted_req = {
                 'service_request_id':       req['service_request_id'],
@@ -127,6 +139,7 @@ def update_database(reqs):
                 'status':                   req['status'],
                 'lat':                      req['lat'],
                 'lng':                      req['long'],
+                'neighborhood':             neighborhood,
                 'requested_datetime':       requested_datetime,
                 'updated_datetime':         updated_datetime,
                 'address':                  req['address'],
@@ -181,7 +194,7 @@ if __name__ == '__main__':
     options, args = parser.parse_args()
 
     if (options.config and options.end_date and options.num_of_days):
-        config = load_config_json(options.config)
+        config = load_json(options.config)
         # Connect to the database
         if (os.environ.get('MONGOHQ_URL')):
             MONGO_URL = os.environ.get('MONGOHQ_URL')
@@ -195,6 +208,8 @@ if __name__ == '__main__':
 
         end_date = datetime.datetime.strptime(options.end_date, '%Y-%m-%d')        
         num_of_days = options.num_of_days
+        
+        neighborhood_data = load_json('data/boston_neighborhoods.json')
 
         start, end = compute_time_range(end_date, 1) # Just handling one day at a time
 
