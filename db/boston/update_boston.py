@@ -209,7 +209,7 @@ if __name__ == '__main__':
         end_date = datetime.datetime.strptime(options.end_date, '%Y-%m-%d')        
         num_of_days = options.num_of_days
         
-        neighborhood_data = load_json('data/boston_neighborhoods.json')
+        neighborhood_data = load_json('data/boston_neighborhoods.geojson')
 
         start, end = compute_time_range(end_date, 1) # Just handling one day at a time
 
