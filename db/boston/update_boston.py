@@ -125,19 +125,19 @@ def update_database(reqs):
             """
             
             # Find out the neighborhood of the request.
-            print req['long'], req['lat']
-            print type(req['long'])
-            print type(req['lat'])
             
-            req_point = Point(float(req['long']), float(req['lat']))
+            if req['long'] and req['lat']:
+                req_point = Point(req['long'], req['lat'])
             
-            for feature in neighborhood_data['features']:
-                neighborhood_polygon = shape(feature['geometry'])
-                
-                if neighborhood_polygon.contains(req_point):
-                    neighborhood = feature['properties']['neighborhood']
-                    print 'Neighborhood: ', neighborhood
-                    break
+                for feature in neighborhood_data['features']:
+                    neighborhood_polygon = shape(feature['geometry'])
+                    
+                    if neighborhood_polygon.contains(req_point):
+                        neighborhood = feature['properties']['neighborhood']
+                        print 'Neighborhood: ', neighborhood
+                        break
+            else:
+                neighborhood = None
 
             adjusted_req = {
                 'service_request_id':       req['service_request_id'],
