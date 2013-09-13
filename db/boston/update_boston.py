@@ -121,7 +121,7 @@ def update_database(reqs):
             """
             
             # Find out the neighborhood of the request.
-            req_point = Point(req['lng'], req['lat'])
+            req_point = Point(float(req['lng']), float(req['lat']))
             
             for feature in neighborhood_data['features']:
                 neighborhood_polygon = shape(feature['geometry'])
