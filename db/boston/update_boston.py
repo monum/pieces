@@ -125,6 +125,10 @@ def update_database(reqs):
             """
             
             # Find out the neighborhood of the request.
+            print req['long'], req['lat']
+            print type(req['long'])
+            print type(req['lat'])
+            
             req_point = Point(float(req['long']), float(req['lat']))
             
             for feature in neighborhood_data['features']:
