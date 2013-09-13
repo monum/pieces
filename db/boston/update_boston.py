@@ -73,17 +73,17 @@ def update_database(reqs):
     try:
         for req in reqs:
             attributes = [
-                'service_request_id', 
-                'service_name', 
+                'service_request_id',
+                'service_name',
                 'service_code',
-                'description', 
+                'description',
                 'status',
                 'status_notes',
-                'lat', 
-                'long', 
-                'requested_datetime', 
+                'lat',
+                'long',
+                'requested_datetime',
                 'updated_datetime',
-                'address', 
+                'address',
                 'media_url'
             ]
                 
@@ -124,7 +124,7 @@ def update_database(reqs):
             """
             
             # Find out the neighborhood of the request.
-            req_point = Point(float(req['lng']), float(req['lat']))
+            req_point = Point(float(req['long']), float(req['lat']))
             
             for feature in neighborhood_data['features']:
                 neighborhood_polygon = shape(feature['geometry'])
