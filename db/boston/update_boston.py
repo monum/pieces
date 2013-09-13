@@ -39,7 +39,7 @@ def parse_date(date_string):
     try:
         return iso8601.parse_date(date_string)
     except (iso8601.ParseError, Exception) as e:
-        print 'Error2: ', e
+        print 'Date Parsing Error: ', e
         return None
 
 def get_requests(city, start, end, page):
@@ -58,10 +58,13 @@ def get_requests(city, start, end, page):
                   'extensions':  'v1'
                  }
     
+    print base_url
+    print query_args
+    
     try:
         return requests.get(base_url, params=query_args).json()
     except (requests.exceptions.RequestException, Exception) as e:
-        print 'Error1: ', e
+        print 'Requests Error: ', e
         sys.exit(1)
 
 def update_database(reqs):
