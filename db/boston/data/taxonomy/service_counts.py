@@ -1,5 +1,4 @@
 import os
-import json
 import csv
 import pymongo
 from urlparse import urlparse
@@ -19,14 +18,12 @@ res = db.boston_requests.aggregate([
     {"$sort": {"count": -1}}
 ])
 
-res_json = json.dumps(res)
-
 with open('taxonomy.csv', 'wt') as f:
     writer = csv.writer(f)
     
     headers = ('service_name', 'count')
     writer.writerow(headers)
     
-    for type in res_json['result']:
+    for type in res['result']:
         writer.writerow( (type['_id'], type['count']) )
     
