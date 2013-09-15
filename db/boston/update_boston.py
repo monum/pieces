@@ -7,7 +7,6 @@ import iso8601
 import json
 import requests
 import pymongo
-#from pymongo import MongoClient
 from shapely.geometry import shape, Point
 from urlparse import urlparse
 
@@ -58,10 +57,7 @@ def get_requests(city, start, end, page):
                   'page_size':   200,
                   'extensions':  'v1'
                  }
-    
-    print base_url
-    print query_args
-    
+        
     try:
         return requests.get(base_url, params=query_args).json()
     except (requests.exceptions.RequestException, Exception) as e:
@@ -134,10 +130,17 @@ def update_database(reqs):
                     
                     if neighborhood_polygon.contains(req_point):
                         neighborhood = feature['properties']['neighborhood']
-                        print 'Neighborhood: ', neighborhood
                         break
             else:
                 neighborhood = None
+                
+            # Add category
+            if service_name in config['taxonomy']:
+                category = config['taxonomy'][service_name]
+            elif service_name:
+                category = service_name
+            else:
+                category = None
 
             adjusted_req = {
                 'service_request_id':       req['service_request_id'],
@@ -156,7 +159,8 @@ def update_database(reqs):
                 'department':               department,
                 'division':                 division,
                 'service_type':             service_type,
-                'queue':                    req['extended_attributes']['queue']
+                'queue':                    req['extended_attributes']['queue'],
+                'category':                 category
             }
 
             service_requests.update(
@@ -206,15 +210,12 @@ if __name__ == '__main__':
         # Connect to the database
         if (os.environ.get('MONGOHQ_URL')):
             MONGO_URL = os.environ.get('MONGOHQ_URL')
-            #client = MongoClient(MONGO_URL)
             conn = pymongo.Connection(MONGO_URL)
             db = conn[urlparse(MONGO_URL).path[1:]]
         else:
-            #client = MongoClient(config['DATABASE']['host'], config['DATABASE']['port'])
             conn = pymongo.Connection(config['DATABASE']['host'], config['DATABASE']['port'])
             db = config['DATABASE']['db_name']
 
-        #db = client[config['DATABASE']['db_name']]
         collection_prefix = config['DATABASE']['collection_prefix']
         service_requests = db[collection_prefix + 'requests']
 
