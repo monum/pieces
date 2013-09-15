@@ -57,6 +57,8 @@ def get_requests(city, start, end, page):
                   'page_size':   200,
                   'extensions':  'v1'
                  }
+    
+    print query_args
         
     try:
         return requests.get(base_url, params=query_args).json()
@@ -141,6 +143,8 @@ def update_database(reqs):
                 category = req['service_name']
             else:
                 category = None
+            
+            print category
 
             adjusted_req = {
                 'service_request_id':       req['service_request_id'],
