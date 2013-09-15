@@ -32,6 +32,7 @@
         "Poor Conditions of Property": {"category": "Problem Properties"},
         "Illegal Dumping": {"category": "Garbage"},
         "New Sign Crosswalk or Pavement Marking": {"category": "Signs"},
+        "New Sign, Crosswalk or Pavement Marking": {"category": "Signs"},
         "New Tree Requests": {"category": "Trees"},
         "Missing Sign": {"category": "Signs"},
         "General Lighting Request": {"category": "Lighting"},
