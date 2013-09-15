@@ -138,7 +138,7 @@ def update_database(reqs):
                 
             # Add category
             if req['service_name'] in config['taxonomy']:
-                category = config['taxonomy'][req['service_name']]
+                category = config['taxonomy'][req['service_name']]['category']
             elif req['service_name']:
                 category = req['service_name']
             else:
