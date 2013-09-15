@@ -11,7 +11,7 @@ db = conn[urlparse(MONGO_URL).path[1:]]
 
 res = db.boston_requests.aggregate([
     {"$group":
-        {"_id": "$service_name", 
+        {"_id": "$service_type", 
          "count": { "$sum": 1 }
         }
     },
