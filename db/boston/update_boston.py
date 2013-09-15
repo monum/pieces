@@ -135,7 +135,7 @@ def update_database(reqs):
                 neighborhood = None
                 
             # Add category
-            if service_name in config['taxonomy']:
+            if req['service_name'] in config['taxonomy']:
                 category = config['taxonomy'][req['service_name']]
             elif req['service_name']:
                 category = req['service_name']
