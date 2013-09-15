@@ -32,7 +32,6 @@
         "Pothole": {"category": "Potholes"},
         "Illegal Dumping": {"category": "Garbage"},
         "Graffiti Removal": {"category": "Graffiti"},
-        "New Sign Crosswalk or Pavement Marking": {"category": "Signs"},
         "New Sign, Crosswalk or Pavement Marking": {"category": "Signs"},
         "Sign Repair": {"category": "Signs"},
         "New Tree Requests": {"category": "Trees"},
