@@ -64,7 +64,8 @@ def get_requests(city, start, end, page):
         return requests.get(base_url, params=query_args).json()
     except (requests.exceptions.RequestException, Exception) as e:
         print 'Requests Error: ', e
-        sys.exit(1)
+        return []
+        #sys.exit(1)
 
 def update_database(reqs):
     """Inserting and updating 311 data into our mongo database."""
