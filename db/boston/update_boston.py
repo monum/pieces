@@ -170,7 +170,7 @@ def update_database(reqs):
                 'description':              req['description'],
                 'status':                   req['status'],
                 'lat':                      req['lat'],
-                'lng':                      req['long'],
+                'long':                     req['long'],
                 'neighborhood':             neighborhood,
                 'requested_datetime':       requested_datetime,
                 'updated_datetime':         updated_datetime,
