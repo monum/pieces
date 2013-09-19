@@ -8,6 +8,7 @@ import json
 import requests
 from shapely.geometry import shape, Point
 import psycopg2
+import urlparse
 from urlparse import urlparse
 
 def load_json(filename):
