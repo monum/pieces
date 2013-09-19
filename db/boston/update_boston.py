@@ -184,12 +184,14 @@ def update_database(reqs):
                 'category':                 category
             }
             
+            print "Finding"
+            
             cur.execute("""
                 SELECT
                     service_request_id
                 FROM""" + table_prefix + """requests
                 WHERE service_request_id = %s
-                """, (req['service_request_id'],))
+                """, (adjusted_req['service_request_id'],))
             
             res = cur.fetchone()
             
