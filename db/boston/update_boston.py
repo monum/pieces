@@ -188,7 +188,7 @@ def update_database(reqs):
             
             cur.execute("""
                 SELECT service_request_id 
-                FROM""" + table_prefix + """_requests 
+                FROM""" + table_prefix + """requests 
                 WHERE service_request_id = %s
             """, (adjusted_req['service_request_id'],))
             
