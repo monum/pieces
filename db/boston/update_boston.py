@@ -185,13 +185,10 @@ def update_database(reqs):
             }
             
             print "Finding"
+            print adjusted_req['service_request_id']
             
-            cur.execute("""
-                SELECT
-                    service_request_id
-                FROM""" + table_prefix + """requests
-                WHERE service_request_id = %s
-                """, (adjusted_req['service_request_id'],))
+            cur.mogrify("""SELECT service_request_id FROM boston_requests WHERE service_request_id = %s""", (adjusted_req['service_request_id'],))
+            cur.execute("""SELECT service_request_id FROM boston_requests WHERE service_request_id = %s""", (adjusted_req['service_request_id'],))
             
             res = cur.fetchone()
             
