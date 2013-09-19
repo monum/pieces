@@ -1,8 +1,7 @@
 {
     "DATABASE": {
         "host": "localhost",
-        "user": "USER_NAME",
-        "password": "PASSWORD",
+        "port": 27017,
         "db_name": "Your-Database-Name",
         "collection_prefix": "boston_"
     },

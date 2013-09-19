@@ -6,6 +6,7 @@ import datetime
 import iso8601
 import json
 import requests
+import pymongo
 from shapely.geometry import shape, Point
 from urlparse import urlparse
 
@@ -68,18 +69,7 @@ def get_requests(city, start, end, page):
 
 def update_database(reqs):
     """Inserting and updating 311 data into our mongo database."""
-    
-    conn = psycopg2.connect(
-        host=config['DATABASE']['host'],
-        password=config['DATABASE']['password'],
-        dbname=config['DATABASE']['db_name'],
-        user=config['DATABASE']['user']
-    )
-    
-    cur = conn.cursor()
-    
-    table_prefix = config['DATABASE']['table_prefix']
-    
+        
     try:
         for req in reqs:
             attributes = [
@@ -184,14 +174,8 @@ def update_database(reqs):
                 upsert=True 
             )
 
-    except psycopg2.IntegrityError:
-        conn.rollback()
     except Exception as e:
-        print e
-        
-    conn.commit()
-    cur.close()
-    conn.close()
+        print 'Update Error', e
 
 if __name__ == '__main__':
     """
@@ -229,6 +213,16 @@ if __name__ == '__main__':
     if (options.config and options.end_date and options.num_of_days):
         config = load_json(options.config)
         # Connect to the database
+        if (os.environ.get('MONGOHQ_URL')):
+            MONGO_URL = os.environ.get('MONGOHQ_URL')
+            conn = pymongo.Connection(MONGO_URL)
+            db = conn[urlparse(MONGO_URL).path[1:]]
+        else:
+            conn = pymongo.Connection(config['DATABASE']['host'], config['DATABASE']['port'])
+            db = config['DATABASE']['db_name']
+
+        collection_prefix = config['DATABASE']['collection_prefix']
+        service_requests = db[collection_prefix + 'requests']
 
         end_date = datetime.datetime.strptime(options.end_date, '%Y-%m-%d')        
         num_of_days = options.num_of_days

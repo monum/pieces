@@ -49,3 +49,8 @@ To deactivate: deactivate
 9. Add Heroku Buildpack + GIS:
 
 https://github.com/monum/heroku-buildpack-python-gis
+
+10. Heroku postgres:
+
+heroku pg:psql HEROKU_POSTGRESQL_SILVER_URL --app three11
+cat create.sql | heroku pg:psql HEROKU_POSTGRESQL_SILVER_URL --app three11
