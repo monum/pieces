@@ -170,7 +170,7 @@ def update_database(reqs):
                 'description':              req['description'],
                 'status':                   req['status'],
                 'lat':                      req['lat'],
-                'long':                     req['long'],
+                'lng':                      req['long'],
                 'neighborhood':             neighborhood,
                 'requested_datetime':       requested_datetime,
                 'updated_datetime':         updated_datetime,
@@ -203,7 +203,7 @@ def update_database(reqs):
                         description=%(description)s,
                         status=%(status)s,
                         lat=%(lat)s,
-                        long=%(long)s,
+                        lng=%(lng)s,
                         neighborhood=%(neighborhood)s,
                         requested_datetime=%(requested_datetime)s,
                         updated_datetime=%(updated_datetime)s,
@@ -224,11 +224,11 @@ def update_database(reqs):
                     INSERT 
                     INTO """ + table_prefix + """requests (service_request_id, 
                         service_name, service_code, description, status, 
-                        lat, long, neighborhood, requested_datetime, updated_datetime, 
+                        lat, lng, neighborhood, requested_datetime, updated_datetime, 
                         address, media_url, channel, department, division, 
                         service_type, queue, category) 
                     VALUES (%(service_request_id)s, %(service_name)s, %(service_code)s,
-                        %(description)s, %(status)s, %(lat)s, %(long)s, %(neighborhood)s,
+                        %(description)s, %(status)s, %(lat)s, %(lng)s, %(neighborhood)s,
                         %(requested_datetime)s, %(updated_datetime)s, %(address)s, 
                         %(media_url)s, %(channel)s, %(department)s, %(division)s, 
                         %(service_type)s, %(queue)s, %(category)s);
