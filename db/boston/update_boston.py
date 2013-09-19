@@ -94,6 +94,8 @@ def update_database(reqs):
     
     table_prefix = config['DATABASE']['table_prefix']
     
+    print table_prefix
+    
     try:
         for req in reqs:
             attributes = [
@@ -184,11 +186,11 @@ def update_database(reqs):
                 'category':                 category
             }
             
-            print "Finding"
-            print adjusted_req['service_request_id']
-            
-            cur.mogrify("""SELECT service_request_id FROM boston_requests WHERE service_request_id = %s""", (adjusted_req['service_request_id'],))
-            cur.execute("""SELECT service_request_id FROM boston_requests WHERE service_request_id = %s""", (adjusted_req['service_request_id'],))
+            cur.execute("""
+                SELECT service_request_id 
+                FROM boston_requests 
+                WHERE service_request_id = %s
+            """, (adjusted_req['service_request_id'],))
             
             res = cur.fetchone()
             
