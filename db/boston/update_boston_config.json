@@ -4,7 +4,7 @@
         "user": "USER_NAME",
         "password": "PASSWORD",
         "db_name": "Your-Database-Name",
-        "collection_prefix": "boston_"
+        "table_prefix": "boston_"
     },
     
     "city": "boston",
