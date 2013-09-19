@@ -7,6 +7,7 @@ import iso8601
 import json
 import requests
 from shapely.geometry import shape, Point
+import psycopg2
 from urlparse import urlparse
 
 def load_json(filename):
@@ -68,14 +69,25 @@ def get_requests(city, start, end, page):
 
 def update_database(reqs):
     """Inserting and updating 311 data into our mongo database."""
+        
+    if HEROKU_POSTGRES_URL:
+        urlparse.uses_netloc.append("postgres")
+        url = urlparse.urlparse(HEROKU_POSTGRES_URL)
     
-    conn = psycopg2.connect(
-        host=config['DATABASE']['host'],
-        password=config['DATABASE']['password'],
-        dbname=config['DATABASE']['db_name'],
-        user=config['DATABASE']['user']
-    )
-    
+        conn = psycopg2.connect(
+            database=url.path[1:],
+            user=url.username,
+            password=url.password,
+            host=url.hostname,
+            port=url.port
+        )
+    else:
+        conn = psycopg2.connect(
+            host=config['DATABASE']['host'],
+            password=config['DATABASE']['password'],
+            dbname=config['DATABASE']['db_name'],
+            user=config['DATABASE']['user']
+        )
     cur = conn.cursor()
     
     table_prefix = config['DATABASE']['table_prefix']
@@ -100,7 +112,7 @@ def update_database(reqs):
             for attribute in attributes:
                 if attribute not in req:
                     req[attribute] = None
-
+            
             extended_attributes = [
                 'channel',
                 'classification',
@@ -124,14 +136,6 @@ def update_database(reqs):
                 department = None
                 division = None
                 service_type = None
-
-            """
-            # Clean up Queue
-            if type(req['extended_attributes']['queue']) is str:
-                queue = req['extended_attributes'].split('_')[0]
-            else:
-                queue = None
-            """
             
             # Find out the neighborhood of the request.
             
@@ -177,12 +181,57 @@ def update_database(reqs):
                 'queue':                    req['extended_attributes']['queue'],
                 'category':                 category
             }
-
-            service_requests.update(
-                { "service_request_id":adjusted_req['service_request_id'] }, 
-                { "$set": adjusted_req },
-                upsert=True 
-            )
+            
+            cur.execute("""
+                SELECT
+                    service_request_id
+                FROM""" + table_prefix + """requests
+                WHERE service_request_id = %s
+                """, (req['service_request_id'],))
+            
+            res = cur.fetchone()
+            
+            if res:
+                print 'Updating'
+                
+                cur.execute("""
+                    UPDATE """ + table_prefix + """requests 
+                    SET service_request_id=%(service_request_id)s,
+                        service_name=%(service_name)s,
+                        service_code=%(service_code)s,
+                        description=%(description)s,
+                        status=%(status)s,
+                        lat=%(lat)s,
+                        long=%(long)s,
+                        neighborhood=%(neighborhood)s,
+                        requested_datetime=%(requested_datetime)s,
+                        updated_datetime=%(updated_datetime)s,
+                        address=%(address)s,
+                        media_url=%(media_url)s,
+                        channel=%(channel)s,
+                        department=%(department)s,
+                        division=%(division)s,
+                        service_type=%(service_type)s,
+                        queue=%(queue)s,
+                        category=%(category)s
+                    WHERE service_request_id=%(service_request_id)s
+                """, adjusted_req)
+            else:
+                print 'Inserting'
+                
+                cur.execute("""
+                    INSERT 
+                    INTO """ + table_prefix + """requests (service_request_id, 
+                        service_name, service_code, description, status, 
+                        lat, long, neighborhood, requested_datetime, updated_datetime, 
+                        address, media_url, channel, department, division, 
+                        service_type, queue, category) 
+                    VALUES (%(service_request_id)s, %(service_name)s, %(service_code)s,
+                        %(description)s, %(status)s, %(lat)s, %(long)s, %(neighborhood)s,
+                        %(requested_datetime)s, %(updated_datetime)s, %(address)s, 
+                        %(media_url)s, %(channel)s, %(department)s, %(division)s, 
+                        %(service_type)s, %(queue)s, %(category)s);
+                """, adjusted_req)
 
     except psycopg2.IntegrityError:
         conn.rollback()
