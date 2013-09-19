@@ -70,7 +70,7 @@ def get_requests(city, start, end, page):
 def update_database(reqs):
     """Inserting and updating 311 data into our mongo database."""
     
-    HEROKU_POSTGRES_URL = os.environ["DATABASE_URL"]
+    HEROKU_POSTGRES_URL = os.environ["HEROKU_POSTGRESQL_SILVER_URL"]
         
     if HEROKU_POSTGRES_URL:
         urlparse.uses_netloc.append("postgres")
