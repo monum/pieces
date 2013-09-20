@@ -11,7 +11,7 @@ app = Flask(__name__)
 ###
 
 def connect_db():
-    HEROKU_POSTGRES_URL = os.environ["HEROKU_POSTGRESQL_YELLOW_URL"]
+    HEROKU_POSTGRES_URL = os.environ["HEROKU_POSTGRESQL_OLIVE_URL"]
     
     if HEROKU_POSTGRES_URL:
         urlparse.uses_netloc.append("postgres")
