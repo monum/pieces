@@ -11,16 +11,26 @@ app = Flask(__name__)
 ###
 
 def connect_db():
-    urlparse.uses_netloc.append("postgres")
-    url = urlparse.urlparse(os.environ["DATABASE_URL"])
+    HEROKU_POSTGRES_URL = os.environ["HEROKU_POSTGRESQL_YELLOW_URL"]
     
-    return psycopg2.connect(
-        database=url.path[1:],
-        user=url.username,
-        password=url.password,
-        host=url.hostname,
-        port=url.port
-    )
+    if HEROKU_POSTGRES_URL:
+        urlparse.uses_netloc.append("postgres")
+        url = urlparse.urlparse(HEROKU_POSTGRES_URL)
+    
+        return psycopg2.connect(
+            database=url.path[1:],
+            user=url.username,
+            password=url.password,
+            host=url.hostname,
+            port=url.port
+        )
+    else:
+        return psycopg2.connect(
+            host=config['DATABASE']['host'],
+            password=config['DATABASE']['password'],
+            dbname=config['DATABASE']['db_name'],
+            user=config['DATABASE']['user']
+        )
 
 @app.before_request
 def before_request():
