@@ -71,7 +71,7 @@ def query_db(query, args=()):
 def get_sample():
     res = query_db("""
         SELECT *
-        FROM requests
+        FROM boston_requests
     """)
     
     return res
@@ -81,22 +81,6 @@ def display_sample():
     sample = get_sample()
     
     return Response(json.dumps(sample), mimetype='application/json')
-
-'''
-def get_sample_json():
-    res = query_db("""
-        SELECT row_to_json(row(status))
-        FROM requests
-    """)
-    
-    return res
-
-@app.route("/sample_json")
-def display_sample_json():
-    sample = get_sample_json()
-    
-    return Response(json.dumps(sample), mimetype='application/json')
-'''
 
 ###
 # Page Rendering
