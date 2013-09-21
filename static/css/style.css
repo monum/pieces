@@ -11,7 +11,7 @@ body {
 }
 
 #header {
-    margin: 10px 0px 10px 0px;
+    /*margin: 10px 0px 10px 0px;*/
 }
 
 #city-name {
@@ -69,7 +69,7 @@ body {
     height: 37px;
     position: absolute;
     top: 50%;
-    left: 70px;
+    left: 85px;
     margin-top: -18px;
 }
 
