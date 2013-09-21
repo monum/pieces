@@ -24,13 +24,16 @@ def connect_db():
             port=url.port
         )
     else:
+        pass
+        """
         return psycopg2.connect(
             host=config['DATABASE']['host'],
             password=config['DATABASE']['password'],
             dbname=config['DATABASE']['db_name'],
             user=config['DATABASE']['user']
         )
-
+        """
+"""
 @app.before_request
 def before_request():
     g.db = connect_db()
@@ -39,6 +42,7 @@ def before_request():
 def teardown_request(exception):
     if hasattr(g, 'db'):
         g.db.close()
+"""
 
 ###
 # Utility functions

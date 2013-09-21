@@ -111,7 +111,7 @@ a {
 .icon-search {
     position: absolute;
     top: 5px;
-    left: 190px;
+    left: 176px;
     font-size: 14px;
     color: #aaa;
     width: 26px;
@@ -130,8 +130,8 @@ a {
 
 input#request-query {
     width: 200px;
-    height: 18px;
-    padding: 4px 4px 4px 10px;
+    height: 28px;
+    padding: 5px 4px 4px 10px;
     font-size: 13px;
     /*line-height: 18px;*/
     color: #5a5a5a;
