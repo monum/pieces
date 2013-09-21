@@ -10,10 +10,9 @@ app = Flask(__name__)
 # Handle database connection
 ###
 
-def connect_db():
-    HEROKU_POSTGRES_URL = os.environ["HEROKU_POSTGRESQL_OLIVE_URL"]
-    
-    if HEROKU_POSTGRES_URL:
+def connect_db():    
+    if "HEROKU_POSTGRESQL_OLIVE_URL" in os.environ:
+        HEROKU_POSTGRES_URL = os.environ["HEROKU_POSTGRESQL_OLIVE_URL"]
         urlparse.uses_netloc.append("postgres")
         url = urlparse.urlparse(HEROKU_POSTGRES_URL)
     
@@ -97,4 +96,4 @@ def dashboard():
 if __name__ == '__main__':
     app.config.from_object(__name__)
     port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
+    app.run(host='0.0.0.0', port=port, debug=True)
