@@ -4,6 +4,12 @@ body {
     padding: 28px;
 }
 
+/* Reset the container */
+.container {
+  max-width: none !important;
+  width: 970px;
+}
+
 #header {
     margin: 10px 0px 10px 0px;
 }

@@ -3,14 +3,16 @@
   <head>
     <title>pieces</title>
     <meta charset="utf-8">
-    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
     <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
-    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap-lite-non-responsive.css') }}">
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap3-lite-non-responsive.css') }}">
     <link rel="stylesheet" type=text/css href="{{ url_for ('static', filename='css/fontawesome/fontawesome.css')}}">
-    <!--<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap-lite-non-responsive.css') }}">-->
-    <!--<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap-lite-plus-responsive.css') }}">-->
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/style.css') }}">
-    <!--<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap-responsive.css') }}">-->
+    
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="{{url_for('static', filename='js/html5shiv.js') }}"></script>
+      <script src="{{url_for('static', filename='js/respond.min.js') }}"></script>
+    <![endif]-->
   </head>
   <body>
     {% block body %}{% endblock %}
