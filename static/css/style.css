@@ -1,7 +1,7 @@
 body {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #333;
-    padding: 28px;
+    /*padding: 28px;*/
 }
 
 /* Reset the container */
@@ -15,12 +15,12 @@ body {
 }
 
 #city-name {
-    color: #999;
+    color: #f8f8f8;
     font-weight:normal;
 }
 
 #title {
-    color: #333;
+    color: #FFF;
     font-size: 24px;
     font-weight: bold;
     /*font-size: 1.7em;*/
@@ -34,13 +34,17 @@ body {
 }
 
 .stat-title {
-    font-size: 14px;
-    color: #999;
+    font-size: 16px;
+    color: #f8f8f8;
+    
+    padding-bottom: 5px;
+    border-bottom: solid 2px #9d9d9d;
 }
 
 .stat {
-    font-size: 24px;
-    color: #000;
+    font-size: 30px;
+    color: #f8f8f8;
+    padding-top: .5em;
 }
 
 #footer-container {

@@ -12,9 +12,8 @@ app = Flask(__name__)
 
 def connect_db():    
     if "HEROKU_POSTGRESQL_OLIVE_URL" in os.environ:
-        HEROKU_POSTGRES_URL = os.environ["HEROKU_POSTGRESQL_OLIVE_URL"]
         urlparse.uses_netloc.append("postgres")
-        url = urlparse.urlparse(HEROKU_POSTGRES_URL)
+        url = urlparse.urlparse(os.environ["HEROKU_POSTGRESQL_OLIVE_URL"])
     
         return psycopg2.connect(
             database=url.path[1:],
