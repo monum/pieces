@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block body %}
-    <div class="col-xs-12" style="height: 17em; position: absolute; background: #CCC;">&nbsp</div>
+    <div class="col-xs-12" style="height: 17em; position: absolute; background: #CCC url({{ url_for('static', filename='images/header.jpg') }}) center no-repeat;">&nbsp</div>
     <div id="content" class="container" style="padding-top: 1em">
         {% include "header.html" %}
         <div class="row" style="margin-top: 1em;">
