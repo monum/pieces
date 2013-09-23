@@ -23,7 +23,7 @@ body {
     /*color: #FFF;*/
     color: #f8f8f8;
     font-size: 24px;
-    font-weight: bold;
+    font-weight: 500;
     /*font-size: 1.7em;*/
     line-height: 26px;
 }
@@ -48,7 +48,7 @@ body {
     font-size: 30px;
     /*color: #f8f8f8;*/
     padding-top: .35em;
-    font-weight: bold;
+    font-weight: 500;
 }
 
 #footer-container {
