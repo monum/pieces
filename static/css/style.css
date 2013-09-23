@@ -15,27 +15,30 @@ body {
 }
 
 #city-name {
-    color: #f8f8f8;
-    font-weight:normal;
+    /*color: #f8f8f8;*/
+    font-weight: normal;
 }
 
 #title {
-    color: #FFF;
+    /*color: #FFF;*/
+    color: #f8f8f8;
     font-size: 24px;
     font-weight: bold;
     /*font-size: 1.7em;*/
     line-height: 26px;
 }
 
+/*
 #updated-date-container {
     font-size: 16px;
     font-weight: bold;
     line-height: 30px;
 }
+*/
 
 .stat-title {
     font-size: 14px;
-    color: #f8f8f8;
+    /*color: #f8f8f8;*/
     
     padding-bottom: 5px;
     border-bottom: solid 2px #9d9d9d;
@@ -43,7 +46,7 @@ body {
 
 .stat {
     font-size: 30px;
-    color: #f8f8f8;
+    /*color: #f8f8f8;*/
     padding-top: .35em;
     font-weight: bold;
 }
@@ -110,7 +113,8 @@ a {
 
 /* Handling the search element */
 #search-bar {
-    position: relative;                
+    position: relative;
+    text-shadow: none;        
 }
 
 .icon-search {
