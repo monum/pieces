@@ -170,7 +170,7 @@ def daily_count():
     open_count_res = query_db("""
         SELECT 
             CAST(DATE(requested_datetime) as text) as date, COUNT(*), status
-        FROM sf_requests 
+        FROM boston_requests 
         WHERE DATE(requested_datetime) BETWEEN (%s) AND (%s) AND status='Open'
         GROUP BY date, status
         ORDER BY date ASC
@@ -179,7 +179,7 @@ def daily_count():
     closed_count_res = query_db("""
         SELECT 
             CAST(DATE(updated_datetime) as text) as date, COUNT(*), status
-        FROM sf_requests 
+        FROM boston_requests 
         WHERE DATE(updated_datetime) BETWEEN (%s) AND (%s) AND status='Closed'
         GROUP BY date, status
         ORDER BY date ASC
