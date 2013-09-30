@@ -160,3 +160,8 @@ input#request-query {
     outline-width: 0;
     -moz-outline-width: 0;
 }
+
+@media only screen and (min-width: 1280px){
+    #header-image {
+        width:100%;
+    }

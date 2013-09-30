@@ -1,6 +1,14 @@
 {% extends "base.html" %}
 {% block body %}
-    <div class="col-xs-12" style="height: 17em; position: absolute; background: #CCC url({{ url_for('static', filename='images/header.jpg') }}) center no-repeat;">&nbsp</div>
+    <!--
+    <div class="col-xs-12" style="height: 17em; position: absolute; background: #CCC url('{{ url_for('static', filename='images/header2.jpg') }}') center no-repeat;">
+        &nbsp;
+    </div>
+    -->
+    
+    <div class="col-xs-12" style="overflow: hidden; padding: 0; height: 17em; position: absolute; background: #CCC;">
+        <img id="header-image" style="position: relative; top: -48px;" src={{ url_for('static', filename='images/header.jpg') }}>
+    </div>    
     <div id="content" class="container" style="padding-top: 1em">
         {% include "header.html" %}
         <div class="row" style="margin-top: 1em;">
