@@ -7,7 +7,7 @@ import urlparse
 from datetime import date, datetime, timedelta
 
 app = Flask(__name__)
-debug = True
+app.debug = True
 
 ###
 # Handle database connection
