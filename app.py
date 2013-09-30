@@ -77,7 +77,7 @@ def get_formatted_date(start_date, end_date, fmt='%Y-%m-%d'):
 def get_max_date():
     res = query_db("""
         SELECT MAX(requested_datetime) AS max_date
-        FROM sf_requests
+        FROM boston_requests
     """)
     
     return res[0]['max_date']
