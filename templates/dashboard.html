@@ -11,13 +11,55 @@
     </div>    
     <div id="content" class="container" style="padding-top: 1em">
         {% include "header.html" %}
-        <div class="row" style="margin-top: 1em;">
-            <div class="col-xs-12" style="background: #CCC">&nbsp;</div>
+        <div id="chart-counts-container" class="row" style="margin: 1em 0 0 0;">
+            
+            <div class="col-xs-11" style="padding-left: 25px;">
+                    <div id="chart-container">
+                        <div id="the-chart">
+                        </div>
+                        <div id="slider-container">
+                            <div id="slider-track"></div>
+                            <div id="slider"></div>
+                        </div>
+                    </div>
+            </div>
+            
+            <div class="col-xs-1" style="padding: 0;">
+                <div id="counts-container">
+                    <div id="open-count-container" class="count-container">
+                        <span id="open-count" class="requestCount">&nbsp;</span><div>Open</div>
+                    </div>
+                    <div class="count-container">
+                        <span id="closed-count" class="requestCount">&nbsp;</span><div>Closed</div>
+                    </div>
+                </div>
+            </div>
         </div>
+        
         <div class="row" style="margin-top: 1em;">
             <div class="col-xs-9" style="background: #CCC">&nbsp;</div>
             <div class="col-xs-3" style="background: #CCC">&nbsp;</div>
         </div>
         {% include "footer.html" %}
     </div>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/dual-state-bar.js') }}"></script>
+    <script type="text/javascript" defer>                        
+        var chart = dualStateBarChart();
+        
+        /*
+        d3.select("#redraw")
+            .on("click", function() { draw("data/daily_count_new2.json"); });
+        */
+                    
+        function draw(path) {
+            d3.json(path, function(data) {
+                console.log(data);
+                d3.select("#chart-counts-container")
+                    .datum(data)
+                    .call(chart);
+            });
+        }
+        
+        draw('/daily_count');  
+    </script>
 {% endblock %}

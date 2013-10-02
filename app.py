@@ -9,6 +9,8 @@ from datetime import date, datetime, timedelta
 app = Flask(__name__)
 app.debug = True
 
+#config: table prefix
+
 ###
 # Handle database connection
 ###
@@ -26,15 +28,18 @@ def connect_db():
             port=url.port
         )
     else:
-        pass
-        """
+        url_base = ''
+        
+        urlparse.uses_netloc.append("postgres")
+        url = urlparse.urlparse(url_base)
+        
         return psycopg2.connect(
-            host=config['DATABASE']['host'],
-            password=config['DATABASE']['password'],
-            dbname=config['DATABASE']['db_name'],
-            user=config['DATABASE']['user']
+            database=url.path[1:],
+            user=url.username,
+            password=url.password,
+            host=url.hostname,
+            port=url.port
         )
-        """
 
 @app.before_request
 def before_request():
@@ -52,6 +57,9 @@ def teardown_request(exception):
 def query_db(query, args=()):
     cur = g.db.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
     #cur = g.db.cursor() # If using Postgres JSON functions
+    
+    #a = cur.mogrify(query, args)
+    #print a
     
     try:
         cur.execute(query, args)
@@ -111,14 +119,14 @@ def combine_open_closed_counts(open_count_res, closed_count_res, start_date, end
         info = {}
         
         info['date'] = datetime.strftime(date, '%Y-%m-%d')
-        info['Open'] = 0
-        info['Closed'] = 0
+        info['open'] = 0
+        info['closed'] = 0
         
         while not input_exhausted and info['date'] == input['date']:
-            if input['status'] == 'Closed':
-                info['Closed'] += input['count']
-            elif input['status'] == 'Open':
-                info['Open'] += input['count']
+            if input['status'] == 'closed':
+                info['closed'] += input['count']
+            elif input['status'] == 'open':
+                info['open'] += input['count']
                 
             count = count + 1
             
@@ -130,6 +138,8 @@ def combine_open_closed_counts(open_count_res, closed_count_res, start_date, end
         date = date + timedelta(1)
         
         combined_result.append(info)
+    
+    print combined_result
     
     return combined_result
 
@@ -157,9 +167,9 @@ def daily_count():
         Get a daily count of service requests that were opened and closed during a
         range of dates.
         
-        The default range is 60 days.
+        The default range is 56 days.
     """
-    days = request.args.get("days", 60)
+    days = request.args.get("days", 56)
     
     end_date = get_max_date()
     
@@ -171,7 +181,7 @@ def daily_count():
         SELECT 
             CAST(DATE(requested_datetime) as text) as date, COUNT(*), status
         FROM boston_requests 
-        WHERE DATE(requested_datetime) BETWEEN (%s) AND (%s) AND status='Open'
+        WHERE DATE(requested_datetime) BETWEEN (%s) AND (%s) AND status='open'
         GROUP BY date, status
         ORDER BY date ASC
     """, (start_day, end_day))
@@ -180,11 +190,11 @@ def daily_count():
         SELECT 
             CAST(DATE(updated_datetime) as text) as date, COUNT(*), status
         FROM boston_requests 
-        WHERE DATE(updated_datetime) BETWEEN (%s) AND (%s) AND status='Closed'
+        WHERE DATE(updated_datetime) BETWEEN (%s) AND (%s) AND status='closed'
         GROUP BY date, status
         ORDER BY date ASC
     """, (start_day, end_day))
-        
+            
     return Response(
         json.dumps(
             combine_open_closed_counts(
